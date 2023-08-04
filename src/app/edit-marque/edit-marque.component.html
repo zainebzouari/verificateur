@@ -1,0 +1,40 @@
+<!--<div *ngIf="marque">
+    <div class="content-container">
+      <input type="text" [(ngModel)]="marque.idMarque" placeholder="Id_Marque" [style.margin-bottom.px]="10">
+      <br>
+      <input type="text" [(ngModel)]="marque.designationMarque" placeholder="Designation_Marque" [style.margin-bottom.px]="10">
+      <br>
+      <div class="button-container">
+        <div class="button-container button">
+          <button (click)="updateMarque(marque)" *ngIf="marque.idMarque" class="btn btn-primary" [style.margin-right.px]="10">Save</button>
+          <button (click)="deleteMarque(marque)" *ngIf="marque.idMarque" class="btn btn-danger" [style.margin-right.px]="10">Delete</button>
+          <button (click)="createMarque(marque)" *ngIf="!marque.idMarque" class="btn btn-success" [style.margin-right.px]="10">Create</button>
+        </div>
+      </div>
+    </div>
+</div>-->
+  
+
+
+<div *ngIf="marque" class="di">
+  <div>
+      <label for="floatingPassword">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id-Marque</label>
+      
+<input  [(ngModel)]="marque.idMarque" class="form-control" >
+
+  </div>
+  <div>
+      
+      <label for="floatingPassword">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Designation-Marque</label> 
+<input  [(ngModel)]="marque.designationMarque" class="form-control" id="floatingPassword">
+
+  </div>
+  <div><br>
+      &nbsp;&nbsp;&nbsp;<button (click)="updateMarque(marque)" *ngIf="marque.idMarque"class="btn btn-success"(click)="reloadPage()">Enregistrer</button>&nbsp;&nbsp;&nbsp;
+<button  (click)="deleteMarque(marque)" *ngIf="marque.idMarque"class="btn btn-danger"(click)="reloadPage()">Supprimer</button></div> 
+<button (click)="createMarque(marque)" *ngIf="marque">ajouter</button>
+
+</div>
+
+  
+  

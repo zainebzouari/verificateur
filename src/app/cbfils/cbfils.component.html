@@ -1,0 +1,30 @@
+<div class="cbfils-container">
+    <div class="cbfils-form">
+      <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="idFils">Id_Fils</label>
+          <input type="text" id="idFils" name="idFils" [(ngModel)]="cbfils.idFils">
+        </div>
+        <div class="form-group">
+          <label for="idArticle">Id_Article</label>
+          <input type="text" id="idArticle" name="idArticle" [(ngModel)]="cbfils.idArticle">
+        </div>
+        <div class="form-group"></div>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+    <div class="cbfils-grid">
+      <div (click)="populateForm(cbfils)"class="cbfils-row" *ngFor="let cbfils of cbfilss">
+        <div class="cbfils-row-details">
+          <span>{{ cbfils.idFils }}</span>
+          <span>{{ cbfils.idArticle }}</span>
+        </div>
+        <div class="cbfils-row-action">
+          <a (click)="deleteCbfils(cbfils)"><i class="fa-solid fa-trash-can"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+

@@ -1,0 +1,34 @@
+
+
+    <div class="my-5">
+      <div class="mx-auto w-25 " style="max-width:100%;">
+        <h2 class="text-center mb-3">Add Famille</h2>
+        <form [formGroup]="form"(ngSubmit)="submit()">
+          
+          <div class="row">
+            <div class="col-md-12 form-group mb-3">
+              <label for="idFamille" class="form-label">ID_Famille</label>
+              <input id="idFamille"  formControlName="idFamille" type="text" name="idFamille" class="form-control" placeholder="Id_Famille" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group mb-3">
+              <label for="designationFamille" class="form-label">Designation_Famille</label>
+              <input id="designationFamille"  formControlName="designationFamille" type="text" name="designationFamille" class="form-control" placeholder="Designation_Famille" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <input [disabled]="!form.valid" class="btn btn-primary w-100" type="submit" value="Submit">
+            </div>
+          </div>
+
+          <div>
+            
+          </div>
+        </form>
+  
+      </div>
+    </div>
+    

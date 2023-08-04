@@ -1,0 +1,22 @@
+.form-control{
+    width: 33.5%; 
+   border-color: black;
+border: solid 3px;   
+font-weight: bold;  
+font-size:x-large;
+padding-left: 10%;
+
+}
+button{
+    margin-right: 1%;
+    width:14% ;
+ }
+
+
+    form{padding-left: 30%;
+    margin-top: 7%;}
+     label{padding-right: 8%;}
+    .di{
+
+        padding-left: 40%;
+    }
