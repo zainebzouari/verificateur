@@ -10,30 +10,38 @@ import { Router } from '@angular/router';
   templateUrl: './famille.component.html',
   styleUrls: ['./famille.component.css']
 })
-export class FamilleComponent implements OnInit {
+ export class FamilleComponent implements OnInit {
+
 
   constructor(private familleservice: FamilleService, private router: Router) { }
 
+  
   data: any
 
+  
   form = new FormGroup({
     idFamille: new FormControl('', [Validators.required]),
     designationFamille: new FormControl('', [Validators.required]),
+   
   })
 
   ngOnInit(): void {
   }
-
-  submit() {
-    this.data = this.form.value;
-    console.log(this.data);
+ 
+  
+  submit(){
+    this.data = this.form.value
+    console.log(this.data)
 
     this.familleservice.createFamille(this.data).subscribe(data => {
-      console.log(data);
-      // Après avoir créé la famille, naviguez vers la page ViewFamilleComponent
-      this.router.navigate(['/famille']);
-    });
+      console.log(data)
+    })
+
+    
+    
+    this.router.navigate(['/famille']);
   }
+
 }
 
 

@@ -20,20 +20,11 @@ export class EditFamilleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let idFamille = this.route.snapshot.params['idFamille'];
-    this.familleservice.getFamilleById(idFamille).subscribe(
-      (data) => {
-       
-        this.form.patchValue({
-          idFamille: '',
-          designationFamille: '',
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.form.patchValue(this.data);
   }
+  
+
+  
 
   form = new FormGroup({
     idFamille: new FormControl('', [Validators.required]),
@@ -42,18 +33,22 @@ export class EditFamilleComponent implements OnInit {
 
   submit() {
     this.data = this.form.value;
-    console.log(this.data);
+   
 
-    this.familleservice.updateFamille(this.data).subscribe(
+    this.familleservice.updateFamille(this.data.idFamille,this.data).subscribe(
       (data) => {
-        console.log(data);
         // Assuming the update is successful, navigate back to the view page
-        this.router.navigate(['/famille']);
+        console.log(this.form.value);
+       
+       
       },
-      (error) => {
-        console.log(error);
-      }
+      
+      
     );
+    this.router.navigate(['/famille']);
+   
   }
+  
 }
+
 

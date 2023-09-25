@@ -1,0 +1,36 @@
+<div class="home-container">
+  <div>
+    <header class="heading">
+      <h1>Vérificateur de <span>Prix</span></h1>
+      <p>Obtenez les meilleurs prix pour vos produits préférés.</p>
+    </header>
+
+    <div class="search-box">
+      <input
+        type="text"
+        id="productId"
+        [(ngModel)]="productId"
+        placeholder="Rechercher un produit par ID..."
+        (keyup.enter)="checkPrice()"
+      />
+      <button (click)="checkPrice()">Rechercher par ID</button>
+    </div>
+
+    <div class="results" *ngIf="searched && result">
+      <h2>Résultats de la recherche :</h2>
+      <div class="result-content">
+        <div class="product-image">
+          <img [src]="result.imageArt" alt="{{ result.imageArt }}" />
+        </div>
+        <div class="product-details">
+          <h3>Designation : {{ result.designationArticle }}</h3>
+          <p>Prix Promotion : {{ result.prixPromotion }} €</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-results" *ngIf="!result && searched">
+      <p>Aucun résultat trouvé pour l'ID {{ productId }}</p>
+    </div>
+  </div>
+</div>

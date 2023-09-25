@@ -1,0 +1,66 @@
+/* Ajoutez ces styles CSS à votre fichier styles.css ou créez un nouveau fichier CSS pour les styles */
+
+/* Style général */
+.container {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    font-size: 32px;
+    color: #333;
+  }
+  
+  /* Style du bouton "Add Famille" */
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style du tableau */
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .table th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style des boutons d'action */
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .btn-warning,
+  .btn-danger {
+    font-weight: bold;
+  }
+  
+  .btn-warning:hover,
+  .btn-danger:hover {
+    opacity: 0.8;
+  }
+  

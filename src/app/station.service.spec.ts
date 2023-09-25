@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CbfilsService } from './cbfils.service';
+import { StationService } from './station.service';
 
-describe('CbfilsService', () => {
-  let service: CbfilsService;
+describe('StationService', () => {
+  let service: StationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CbfilsService);
+    service = TestBed.inject(StationService);
   });
 
   it('should be created', () => {

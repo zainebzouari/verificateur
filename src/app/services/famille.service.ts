@@ -9,9 +9,10 @@ import { Famille } from '../models/famille';
 })
 export class FamilleService {
   private url;
+  find: any;
 
   constructor(private http: HttpClient) {
-    this.url = "https://localhost:7021/api/Familles";
+    this.url = "https://localhost:7248/api/Familles";
   }
 
  // public GetMarques(): Observable<marque[]> {
@@ -22,15 +23,14 @@ export class FamilleService {
    header.append('Content-Type','applications/json');
    return this.http.get<Famille[]>(`${this.url}`,{headers:header});
    }
-   public updateFamille(famille: Famille): Observable<Famille> {
+   public updateFamille(idFamille:string,famille: Famille): Observable<Famille> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.put<Famille>(`${this.url}/${famille.idFamille}`, famille, { headers: headers });
   }
-  
     public createFamille(famille: Famille): Observable<Famille[]> {
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    return this.http.post<Famille[]>(`${this.url}`,  { headers: header });
+    return this.http.post<Famille[]>(`${this.url}`, famille, { headers: header });
    }
    public deleteFamille(idFamille: string): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

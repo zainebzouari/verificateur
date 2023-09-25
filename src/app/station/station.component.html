@@ -1,0 +1,112 @@
+ <!-- <div class="container">
+        
+  <form novalidate=""  #form="ngForm" (ngSubmit)="createStation()">
+      <h2>Register Stations</h2>
+      <div class="mb-3">
+        <label for="idStation" class="form-label">Id_Station</label>
+        <input type="text" class="form-control" id="idStation"  placeholder="Enter the id station">
+       
+      </div>
+      <div class="mb-3">
+        <label for="designation" class="form-label">Designation</label>
+        <input type="text" class="form-control" id="designation"  placeholder="Enter the station designation">
+      
+      </div>
+      <div class="mb-3">
+        <label for="adresse" class="form-label">Adresse</label>
+        <input type="text" class="form-control" id="adresse" placeholder="Enter the station adresse">
+      </div>
+     
+    <div class="mb-3">
+        <label for="file-sighn" class="form-label">Your Image</label>
+        <input type="file" class="form-control" id="file-sighn" placeholder="Enter Your Password"(change)="handleFileInput($event)">
+      </div>
+     
+      <input type="submit" class="btn btn-primary" id="submit" >
+     
+    </form>
+</div>
+<app-footer></app-footer>-->
+<!-- Add this to your HTML file -->
+
+
+<div class="container-fluid g-0">
+  <main class="black-border">
+    <!-- TOOLBAR TO ADD AND SEARCH STATIONS -->
+    <div class="toolbar">
+      <div class="add-station">
+        <button type="button" class="btn btn-outline-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" #addStationButton>Add Station</button>
+      </div>
+      <div class="search-stations">
+        <input type="search" class="form-control" placeholder="Search Stations" (input)="searchStations(searchInput.value)" #searchInput>
+      </div>
+    </div>
+    <div class="stations">
+
+      <div class="row mt-5" *ngIf="stationsToDisplay.length === 0">
+        <div class="col text-center">
+          <span class="text-secondary fs-2 fw-bold fst-italic">There are No Stations Added!</span>
+        </div>
+      </div>
+      
+      <div class="row mt-4" *ngFor="let station of stationsToDisplay; let ei = index;">
+        <div class="col">
+          <app-editstation [station]="station" (onRemoveStation)="removeStation($event)" (onEditStation)="editStation($event)" ></app-editstation>
+
+        </div>
+      </div>
+    </div>
+    </main>
+  </div>
+ 
+
+  <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enter Employee Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="stationForm">
+  
+            <!-- FIRST AND LAST NAME -->
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Id_Station" formControlName="idStation">
+              </div>
+              <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Designation" formControlName="designation">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Adresse" formControlName="adresse">
+              </div>
+            </div>
+  
+            
+            
+  
+             <div class="row mt-3">
+              <div class="col">
+                <label for="file" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="logo" #fileInput>
+              </div>
+            </div>
+   </div>
+            
+          </form>
+  
+        </div>
+      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addStation()">Insert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    

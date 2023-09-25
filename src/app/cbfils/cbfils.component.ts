@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CbfilsService } from '../services/cbfils.service';
 import { Cbfils } from '../models/cbfils';
 import { Router } from '@angular/router';
+import { ArticleService } from '../services/article.service';
+import { Article } from '../models/article';
 
 @Component({
   selector: 'app-cbfils',
@@ -10,15 +12,17 @@ import { Router } from '@angular/router';
 })
 export class CbfilsComponent implements OnInit {
   public cbfilss: Cbfils[] = [];
+  public article: Article[] = [];
   cbfils: Cbfils = {
     idFils: '',
     idArticle: ''
   };
 
-  constructor(private route: Router, private cbfilsService: CbfilsService) {}
+  constructor(private route: Router, private cbfilsService: CbfilsService,private articleService: ArticleService) {}
 
   ngOnInit(): void {
     this.GetCbfils();
+    this.GetArticles();
   }
 
   onSubmit() {
@@ -38,6 +42,12 @@ export class CbfilsComponent implements OnInit {
   GetCbfils() {
     this.cbfilsService.GetCbfils().subscribe((result: Cbfils[]) => {
       this.cbfilss = result;
+      console.log(result);
+    });
+  }
+  GetArticles() {
+    this.articleService.GetArticles().subscribe((result: Article[]) => {
+      this.article = result;
       console.log(result);
     });
   }

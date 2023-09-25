@@ -11,7 +11,7 @@ export class CbfilsService {
   private url;
 
   constructor(private http: HttpClient) {
-    this.url = "https://localhost:7021/api/CBFils";
+    this.url = "https://localhost:7248/api/CBFils";
   }
 
  

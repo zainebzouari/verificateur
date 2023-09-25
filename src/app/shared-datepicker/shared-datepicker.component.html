@@ -1,0 +1,10 @@
+<mat-form-field style="width: 100%;" appearance="fill">
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+    
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+ 
+  <mat-datepicker class="mat-calendar ng-tns-c92-0 ng trigger ng-trigger-fadeInCalendar" #picker></mat-datepicker>
+</mat-form-field>
+

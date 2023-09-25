@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "idStation": "55",
+      "adresse": "",
+      "designation": "44",
+      "id": 2
+    },
+    {
+      "idStation": "33",
+      "adresse": "route mahdia km 4 ",
+      "designation": "44",
+      "logo": "asssm.jpg",
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

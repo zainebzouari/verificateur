@@ -31,7 +31,5 @@ export class EditMarqueComponent {
   public createMarque(marque:Marque){
     this.marques.createMarque(marque).subscribe((result:Marque[]) => this.marqueUpdated.emit(result ));
   }
-
-
 }
 

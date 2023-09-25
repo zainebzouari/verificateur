@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="message-card">
+            <div class="logo pic">
+                <img src="http://www.asm-tunisie.com/wp-content/uploads/2017/01/asm-logo-blanc130x41.png" alt="logo-pic" width="100px">
+            </div>
+                <div class="title">
+                    <h1>leave your impression</h1>
+
+                    
+                </div>
+                <form onsubmit="sendEmail();reset();return false ">
+                    <input type="text" id="name" placeholder="your name"required>
+                    <input type="email" id="email" placeholder="email id"required>
+                    <input type="text" id="phone" placeholder="phone no"required>
+                    <textarea  id="message" cols="30" rows="4" placeholder="leave your message"></textarea>
+                    <button id="submit" type="submit">send</button>
+
+                </form>
+            </div>
+        </div>
+   
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        function sendEmail(){
+            Email.send({
+    SecureToken :"is 87779e00-1f6b-4c90-8fec-ae96a44edee1",
+    To : 'zouarizaineb@gmail.com',
+    From : "zouarizaineb@gmail.com",
+    Subject : "Ttest email",
+    Body : "name : " +document.getElementById("name").value
+        +"<br> Email :"+document.getElementById("email").value
+        +"<br> phone no :"+document.getElementById("phone").value
+        +"<br> message:"+document.getElementById("message").value
+}).then(
+  message => alert("message sent succesfully")
+);
+
+
+
+        }
+    </script>
+</body>
+</html>
+
+
+ 

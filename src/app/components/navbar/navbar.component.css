@@ -1,7 +1,257 @@
-.navbar {
-    margin-bottom: 20px; /* Adjust the value as needed */
+.header-container {
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  z-index: 1;
+}
+
+.row-pers {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 30px;
+}
+
+.plain-navbar {
+  width: 90%;
+  margin-inline: 10px;
+}
+
+.main-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+}
+
+.menu-item-pers {
+  list-style: none;
+}
+
+.menu-link-pers {
+  position: relative;
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.menu-item-pers::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+.menu-link-pers:hover {
+  color: #df781c;
+  cursor: pointer;
+}
+
+.menu-link-pers::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  background-color: #df781c;
+  width: 0;
+  height: 1px;
+  transition: width 0.3s;
+}
+
+.menu-link-pers:hover::after {
+  width: 20px;
+}
+
+.active {
+  position: relative;
+  color: #df781c;
+}
+
+.active::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 20px;
+  height: 1px;
+  background-color: #df781c;
+}
+
+.search-area-pers {
+  display: flex;
+  align-items: center;
+}
+
+.search-pers {
+  width: 0;
+  height: 0;
+  border: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.search-pers:focus-visible {
+  width: 180px;
+  height: initial;
+  border: 2px #df781c solid;
+  border-right: 0;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  outline: none;
+  padding: 12px;
+}
+
+.search-pers::placeholder {
+  text-transform: lowercase;
+  opacity: 0.6;
+}
+
+.search-icon-pers {
+  background-color: #df781c;
+  border: none;
+  padding: 10px 13px;
+  cursor: pointer;
+}
+
+.search-icon-pers > img {
+  margin-top: 3px;
+}
+
+.responsive-menu-icon,
+.responsive-plain-navbar {
+  display: none;
+}
+
+@media screen and (max-width: 684px) {
+  .row-pers {
+    justify-content: space-between;
   }
-  
-  .content-section {
-    margin-top: 20px; /* Adjust the value as needed */
+
+  .plain-navbar {
+    display: none;
+    width: 0;
+    padding: 0;
+    height: 0;
   }
+
+  .right-side-pers {
+    position: relative;
+    display: flex;
+  }
+
+  .responsive-menu-icon {
+    display: block;
+    background-color: white;
+    color: #df781c;
+    border: 1px solid #df781c;
+    padding: 8px 13px;
+    cursor: pointer;
+  }
+
+  .responsive-menu-icon:hover {
+    background-color: #df781c;
+    color: white;
+    border: 1px white solid;
+  }
+
+  .responsive-plain-navbar {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    display: block;
+    width: 250px;
+    height: 220px;
+    border-radius: 16px;
+    box-shadow: 6px 9px 10px #df771ca2;
+    background-color: white;
+  }
+
+  .responsive-main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0;
+    padding-block: 13px;
+    margin: 0;
+  }
+
+  .active-icon {
+    background-color: #df781c;
+    color: white;
+    border: 1px white solid;
+  }
+
+  .responsive-plain-navbar.slide-down {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+    transition: transform 1.125s ease-in-out, opacity 1.125s ease-in-out;
+  }
+
+  .responsive-plain-navbar.slide-up {
+    transform: translateX(200%);
+    opacity: 0;
+    pointer-events: auto;
+    transition: transform 1.125s ease-in-out, opacity 1.125s ease-in-out;
+  }
+}
+@media screen and (max-width: 450px) {
+  .row-pers {
+    padding-inline: 8px;
+  }
+
+  .navbar-brand > img {
+    width: 70px;
+  }
+
+  .plain-navbar {
+    margin: 0;
+  }
+
+  .right-side-pers {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0;
+  }
+
+  .search-pers {
+    font-size: 12px;
+    padding-left: 3px;
+  }
+
+  .search-pers:focus-visible {
+    width: 130px;
+    height: initial;
+    border: 2px #df781c solid;
+    border-right: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    outline: none;
+    padding: 9px;
+  }
+
+  .search-pers::placeholder {
+    font-size: 12px;
+  }
+
+  .search-icon-pers {
+    padding: 7px 9px;
+  }
+
+  .responsive-menu-icon {
+    padding: 5px 9px;
+  }
+
+  .responsive-plain-navbar {
+    top: 41px;
+  }
+}

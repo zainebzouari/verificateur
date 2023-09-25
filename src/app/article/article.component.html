@@ -7,25 +7,34 @@
             <h2>Manage <b>Articles</b></h2>
           </div>
           <div class="col-sm-6">
-            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#addArticleModal"(click)="createArticle()">
-              <i class="material-icons">&#xE147;</i>
+            <a
+              href="#addArticleModal"
+              class="btn btn-success"
+              data-toggle="modal"
+              ><i class="material-icons">&#xE147;</i>
               <span>Add New Article</span>
             </a>
-            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteArticleModal">
-              <i class="material-icons">&#xE15C;</i>
-              <span>Delete</span>
-            </a>
+            <a
+              href="#deleteArticleModal"
+              class="btn btn-danger"
+              data-toggle="modal"
+              ><i class="material-icons">&#xE15C;</i> <span>Delete</span></a
+            >
           </div>
         </div>
       </div>
+      <div class="filter">
+        <mat-form-field appearance="fill">
+          <mat-label>Filter Articles</mat-label>
+          <input matInput #filterInput />
+        </mat-form-field>
+      </div>
+
       <table class="table table-striped table-hover">
         <thead>
           <tr>
             <th>
-              <span class="custom-checkbox">
-                <input type="checkbox" id="selectAll">
-                <label for="selectAll"></label>
-              </span>
+              <input type="checkbox" name="selectAll" id="selectAll" />
             </th>
             <th>Id_Article</th>
             <th>Designation_Article</th>
@@ -38,262 +47,426 @@
             <th>Prix_Promotion</th>
             <th>Prix_TTC</th>
             <th>Image_Article</th>
-            <th>Action</th> 
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let articleItem of getPaginatedItems()">
-          <td>
-            <span class="custom-checkbox">
-              <input type="checkbox" id="checkbox1" name="options[]" value="1" [(ngModel)]="articleItem.selected" (change)="toggleCheckbox(articleItem)">
-              <label for="checkbox1"></label>
-            </span>
-            
+          <tr *ngFor="let articleItem of getPaginatedItems()">
+            <td>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [checked]="articleItem.selected"
+                  (change)="toggleArticleSelection(articleItem)"
+                />
+                <label class="form-check-label" for="flexCheckChecked"></label>
+              </div>
+            </td>
 
-          </td>
-          <td>{{ articleItem.idArticle }}</td>
-          <td>{{ articleItem.designationArticle }}</td>
-          <td>{{ articleItem.idFamille }}</td>
-          <td>{{ articleItem.idMarque }}</td>
-          <td>{{ articleItem.idStation }}</td>
-          <td>{{ articleItem.ddPromotion }}</td>
-          <td>{{ articleItem.dfPromotion }}</td>
-          <td>{{ articleItem.tauxPromotion }}</td>
-          <td>{{ articleItem.prixPromotion }}</td>
-          <td>{{ articleItem.prixTTC }}</td>
-          <td>{{ articleItem.imageArt }}</td>
-          <td>
-            <a href="#" class="edit" data-toggle="modal" data-target="#editArticleModal"(click)="updateArticle(articleItem)">
-              <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+            <td>{{ articleItem.idArticle }}</td>
+            <td>{{ articleItem.designationArticle }}</td>
+            <td>{{ articleItem.idFamille }}</td>
+            <td>{{ articleItem.idMarque }}</td>
+            <td>{{ articleItem.idStation }}</td>
+            <td>{{ articleItem.ddPromotion }}</td>
+            <td>{{ articleItem.dfPromotion }}</td>
+            <td>{{ articleItem.tauxPromotion }}</td>
+            <td>{{ articleItem.prixPromotion }}</td>
+            <td>{{ articleItem.prixTTC }}</td>
+            <td>
+              <ng-container *ngIf="articleItem.imageArt; else noImage">
+                <img [src]="articleItem.imageArt" alt="Article" />
+              </ng-container>
+              <ng-template #noImage>
+                <p>Empty</p>
+              </ng-template>
+            </td>
+            <td>
+              <a
+                href="#editArticleModal"
+                class="edit"
+                data-toggle="modal"
+                data-target="#editArticleModal"
+                (click)="openEditForm(articleItem)"
+              >
+                <i class="material-icons" data-toggle="tooltip" title="Edit"
+                  >&#xE254;</i
+                >
+              </a>
+              <a
+                href="#deleteArticleModal"
+                class="delete"
+                data-toggle="modal"
+                data-target="#deleteArticleModal"
+                (click)="handleDeleteArticle(articleItem.idArticle!)"
+              >
+                <i class="material-icons" data-toggle="tooltip" title="Delete"
+                  >&#xE872;</i
+                >
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page of users"
+        (page)="onPageSizeChange($event)"
+      ></mat-paginator>
+
+      <div class="clearfix">
+        <div class="hint-text">
+          Showing <b>{{ (currentPage - 1) * itemsPerPage + 1 }}</b> to
+          <b>{{ displayedItemCount }}</b> of <b>{{ totalItems }}</b> entries
+        </div>
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="{ disabled: currentPage === 1 }">
+            <a
+              href="javascript:void(0);"
+              class="page-link"
+              (click)="onPageChange(currentPage - 1)"
+            >
+              Previous
             </a>
-            <a href="#" class="delete" data-toggle="modal" data-target="#deleteArticleModal" (click)="deleteArticle(articleItem)">
-              <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+          </li>
+          <li
+            class="page-item"
+            *ngFor="let page of getPaginationArray()"
+            [ngClass]="{ active: currentPage === page }"
+          >
+            <a
+              href="javascript:void(0);"
+              class="page-link"
+              (click)="onPageChange(page)"
+            >
+              {{ page }}
             </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="clearfix">
-      <div class="hint-text">Showing <b>{{ currentPage * itemsPerPage - itemsPerPage + 1 }}</b> to <b>{{ currentPage * itemsPerPage }}</b> of <b>{{ totalItems }}</b> entries</div>
-      <ul class="pagination">
-        <li class="page-item" [ngClass]="{ 'disabled': currentPage === 1 }">
-          <a href="javascript:void(0);" class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
-        </li>
-        <li class="page-item" *ngFor="let page of getPaginationArray()"
-          [ngClass]="{ 'active': currentPage === page }">
-          <a href="javascript:void(0);" class="page-link" (click)="onPageChange(page)">{{ page }}</a>
-        </li>
-        <li class="page-item" [ngClass]="{ 'disabled': currentPage === getTotalPages() }">
-          <a href="javascript:void(0);" class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
-        </li>
-      </ul>
-      
+          </li>
+          <li
+            class="page-item"
+            [ngClass]="{ disabled: currentPage === getTotalPages() }"
+          >
+            <a
+              href="javascript:void(0);"
+              class="page-link"
+              (click)="onPageChange(currentPage + 1)"
+            >
+              Next
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-
-
-<div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="addArticleModalLabel" aria-hidden="true">
-  <form (ngSubmit)="createArticle()">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Add Article</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+</div>
+<!--Add Modal HTML-->
+<div *ngIf="showForm" id="addArticleModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="mygroup" method="post" enctype="multipart/form-data">
+        <div class="modal-header border-0">
+          <h2 class="modal-title mt-3 ml-2">Add Article</h2>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="false"
+          >
+            &times;
           </button>
         </div>
-       
-<div mat-dialog-content>
-<div class="row">
-  <mat-form-field appearance="outline">
-      <mat-label>idArticle</mat-label>
-      <input matInput type="text" placeholder=" Id_Article" formControlName="idArticle">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>designationArticle</mat-label>
-    <input matInput type="text" placeholder=" Designation_Article" formControlName="designationArticle">
-</mat-form-field>
-</div>
-<div class="row">
-  <mat-form-field appearance="outline">
-      <mat-label>idFamille</mat-label>
-      <input matInput type="text" placeholder=" Id_Famille" formControlName="idFamille">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>idMarque</mat-label>
-    <input matInput type="text" placeholder=" Id_Marque" formControlName="idMarque">
-</mat-form-field>
-</div>
-<div class="row">
-  <mat-form-field appearance="outline">
-      <mat-label>idStation</mat-label>
-      <input matInput type="text" placeholder=" Id_Station" formControlName="idStation">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>prixTTC</mat-label>
-    <input matInput type="text" placeholder=" Prix_TTC" formControlName="prixTTC">
-</mat-form-field>
-</div>
-<div class="row">
-  <mat-form-field appearance="outline">
-      <mat-label>prixPromotion</mat-label>
-      <input matInput type="text" placeholder=" Prix_Promotion" formControlName="prixPromotion">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>tauxPromotion</mat-label>
-    <input matInput type="text" placeholder="Taux_Promotion" formControlName="Taux_Promotion">
-</mat-form-field>
-</div>
-<div class="row">
-<mat-form-field appearance="outline">
-  <mat-label>DDPromotion</mat-label>
-  <input matInput [matDatepicker]="picker" formControlName="DDPromotion">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-<mat-form-field appearance="outline">
-  <mat-label>DFPromotion</mat-label>
-  <input matInput [matDatepicker]="picker" formControlName="DFPromotion">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-</div>
-<div class="form-group">
-  <label>Image_Article</label>
-  <label class="custum-file-upload" for="file">
-    <div class="icon">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path fill="" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z" clip-rule="evenodd" fill-rule="evenodd"></path> </g></svg>
-    </div>
-    
-    <div class="text">
-      <span>Click to upload image</span>
-    </div>
-    <input type="file" id="file" (change)="onFileSelected($event)">
-  </label>
-</div>
-</div>
-<div class="modal-footer">
-<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-<button type="submit" class="btn btn-success">Add</button>
-</div>
-</div>
-</div>
 
-
-
-<div id="editArticleModal" class="modal fade"tabindex="-1" role="dialog" aria-labelledby="editArticleModalLabel" aria-hidden="true">
-  <form (ngSubmit)="updateArticle(articles)">
-	<div class="modal-dialog">
-		<div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Edit Article</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div mat-dialog-content>
-        <div class="row">
-          <mat-form-field appearance="outline">
+        <div class="modal-body">
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
               <mat-label>idArticle</mat-label>
-              <input matInput type="text" placeholder=" Id_Article" formControlName="idArticle">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>designationArticle</mat-label>
-            <input matInput type="text" placeholder=" Designation_Article" formControlName="designationArticle">
-        </mat-form-field>
-        </div>
-        <div class="row">
-          <mat-form-field appearance="outline">
-              <mat-label>idFamille</mat-label>
-              <input matInput type="text" placeholder=" Id_Famille" formControlName="idFamille">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>idMarque</mat-label>
-            <input matInput type="text" placeholder=" Id_Marque" formControlName="idMarque">
-        </mat-form-field>
-        </div>
-        <div class="row">
-          <mat-form-field appearance="outline">
-              <mat-label>idStation</mat-label>
-              <input matInput type="text" placeholder=" Id_Station" formControlName="idStation">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>prixTTC</mat-label>
-            <input matInput type="text" placeholder=" Prix_TTC" formControlName="prixTTC">
-        </mat-form-field>
-        </div>
-        <div class="row">
-          <mat-form-field appearance="outline">
+              <input
+                matInput
+                type="text"
+                placeholder=" Id_Article"
+                formControlName="idArticle"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Designation</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder=" Designation_Article"
+                formControlName="designationArticle"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
+              <mat-label>Famille</mat-label>
+              <mat-select formControlName="idFamille">
+                <mat-option *ngFor="let p of Familles" [value]="p.idFamille"
+                  >{{ p.idFamille }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Marque</mat-label>
+              <mat-select formControlName="idMarque">
+                <mat-option *ngFor="let p of Marques" [value]="p.idMarque"
+                  >{{ p.idMarque }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
+              <mat-label>Station</mat-label>
+              <mat-select formControlName="idStation">
+                <mat-option *ngFor="let p of Stations" [value]="p.idStation"
+                  >{{ p.idStation }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>prixTTC</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder=" Prix_TTC"
+                formControlName="prixTTC"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
               <mat-label>prixPromotion</mat-label>
-              <input matInput type="text" placeholder=" Prix_Promotion" formControlName="prixPromotion">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>tauxPromotion</mat-label>
-            <input matInput type="text" placeholder="Taux_Promotion" formControlName="Taux_Promotion">
-        </mat-form-field>
-        </div>
-        <div class="row">
-        <mat-form-field appearance="outline">
-          <mat-label>DDPromotion</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="DDPromotion">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>DFPromotion</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="DFPromotion">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        </div>
-        <div class="form-group">
-          <label>Image_Article</label>
-          <label class="custum-file-upload" for="file">
-            <div class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path fill="" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z" clip-rule="evenodd" fill-rule="evenodd"></path> </g></svg>
-            </div>
-            
-            <div class="text">
-              <span>Click to upload image</span>
-            </div>
-            <input type="file" id="file" (change)="onFileSelected($event)">
-          </label>
-        </div>
-        </div>
-          <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <button type="submit" class="btn btn-success">Add</button>
+              <input
+                matInput
+                type="text"
+                placeholder=" Prix_Promotion"
+                formControlName="prixPromotion"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>tauxPromotion</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="Taux_Promotion"
+                formControlName="tauxPromotion"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <app-shared-datepicker
+              formControlName="dfPromotion"
+            ></app-shared-datepicker>
+            <app-shared-datepicker
+              formControlName="ddPromotion"
+            ></app-shared-datepicker>
           </div>
         </div>
-      </div>
-  </form>
-			
-		</div>
-    </form>
+        <!-- <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload> -->
+        <input type="file" formControlName="imageArt" />
+
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancel"
+          />
+          <input
+            type="submit"
+            class="btn btn-success"
+            value="Add"
+            (click)="createArticleFromHtml()"
+            (click)="refreshTable()"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
-<div id="deleteArticleModal" class="modal fade"tabindex="-1" role="dialog" aria-labelledby="deleteArticleModalLabel" aria-hidden="true">
-  <form (ngSubmit)="deleteArticle(articles)">
-	<div class="modal-dialog">
-		<div class="modal-content">
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Article</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete" >
-				</div>
+<!--Edit Modal HTML -->
+<div id="editArticleModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="mygroup" (ngSubmit)="submit()">
+        <div class="modal-header border-0">
+          <h2 class="modal-title mt-3 ml-2">Edit Article</h2>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="false"
+          >
+            &times;
+          </button>
         </div>
-		  </div>
-      </form>
 
+        <div class="modal-body">
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
+              <mat-label>idArticle</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder=" Id_Article"
+                formControlName="idArticle"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>designationArticle</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder=" Designation_Article"
+                formControlName="designationArticle"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
+              <mat-label>Famille</mat-label>
+              <mat-select formControlName="idFamille">
+                <mat-option *ngFor="let p of Familles" [value]="p.idFamille"
+                  >{{ p.idFamille }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Marque</mat-label>
+              <mat-select formControlName="idMarque">
+                <mat-option *ngFor="let p of Marques" [value]="p.idMarque"
+                  >{{ p.idMarque }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
+              <mat-label>Station</mat-label>
+              <mat-select formControlName="idStation">
+                <mat-option *ngFor="let p of Stations" [value]="p.idStation"
+                  >{{ p.idStation }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>prixTTC</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder=" Prix_TTC"
+                formControlName="prixTTC"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group d-flex justify-content-around">
+            <mat-form-field appearance="outline">
+              <mat-label>prixPromotion</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder=" Prix_Promotion"
+                formControlName="prixPromotion"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>tauxPromotion</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="Taux_Promotion"
+                formControlName="tauxPromotion"
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <div class="p-2">
+              <mat-form-field style="width: 100%" appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="ddPromotion"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+
+                <mat-datepicker
+                  class="mat-calendar ng-tns-c92-0 ng trigger ng-trigger-fadeInCalendar"
+                  #picker
+                ></mat-datepicker>
+              </mat-form-field>
+
+              <app-shared-datepicker
+                formControlName="dfPromotion"
+              ></app-shared-datepicker>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancel"
+          />
+          <input type="submit" class="btn btn-success" value="Edit" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Delete Modal HTML -->
+<div
+  *ngIf="deleteConfirmationVisible"
+  id="deleteArticleModal"
+  class="modal fade"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Delete Articles</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete these Records?</p>
+          <p class="text-warning">
+            <small>This action cannot be undone.</small>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancel"
+          />
+          <input
+            type="submit"
+            class="btn btn-danger"
+            value="Delete"
+            (click)="deleteArticle()"
+            (click)="deleteSelectedArticles()"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

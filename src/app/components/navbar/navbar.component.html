@@ -1,54 +1,181 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="">Home</a>
+<header class="header-container">
+  <div class="row-pers">
+    <a class="navbar-brand" href="/">
+      <img
+        _ngcontent-ng-c579934697=""
+        src="https://www.asm-tunisie.com/wp-content/uploads/2017/01/asm-logo130x41.png"
+        alt="brand logo"
+      />
+    </a>
+
+    <nav class="plain-navbar">
+      <ul class="main-menu">
+        <li class="menu-item-pers">
+          <a class="menu-link-pers" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page"
+            >Home</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/article"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >Article</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/marque"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >Marque</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/famille"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >Famille</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/cbfils"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >CBFils</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/Station"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >Station</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/about"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >About</a
+          >
+        </li>
+        <li class="menu-item-pers">
+          <a
+            class="menu-link-pers"
+            routerLink="/contact"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="right-side-pers">
+      <div class="search-area-pers">
+        <input
+          class="search-pers"
+          type="text"
+          placeholder="search for something..."
+        />
+        <div class="search-icon-pers" id="search-icon-pers">
+          <img
+            src="../../../assets/img/search_FILL0_wght400_GRAD0_opsz24.svg"
+            alt="search"
+          />
+        </div>
+      </div>
+
+      <div class="responsive-menu-icon">
+        <span class="material-symbols-outlined"> menu </span>
+      </div>
+
+      <nav class="responsive-plain-navbar slide-up">
+        <ul class="responsive-main-menu">
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/home"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >Home</a
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/article" >Article</a>
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/article"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >Article</a
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/marque" >Marque</a>
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/marque"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >Marque</a
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/famille">Famille</a>
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/famille"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >Famille</a
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/cbfils">CBFils</a>
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/cbfils"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >CBFils</a
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/Station">Station</a>
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/station"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >Station</a
+            >
           </li>
-          <li class="nav-item dropdown">
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/about"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >About</a
+            >
+          </li>
+          <li class="menu-item-pers">
+            <a
+              class="menu-link-pers"
+              routerLink="/contact"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              >Contact</a
+            >
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+      </nav>
     </div>
-  </nav>
-  
-  <style>
-    .navbar-dark .navbar-nav .nav-link {
-      color: gray;
-      
-    }
-    
-    .navbar-dark .navbar-nav .nav-link:hover,
-    .navbar-dark .navbar-nav .nav-link:focus {
-      color: white;
-    }
-  </style>
-  
-  
-  
-
-  
- 
+  </div>
+</header>

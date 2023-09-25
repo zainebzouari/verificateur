@@ -1,30 +1,40 @@
-<div class="cbfils-container">
-    <div class="cbfils-form">
-      <form #form="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="idFils">Id_Fils</label>
-          <input type="text" id="idFils" name="idFils" [(ngModel)]="cbfils.idFils">
-        </div>
-        <div class="form-group">
-          <label for="idArticle">Id_Article</label>
-          <input type="text" id="idArticle" name="idArticle" [(ngModel)]="cbfils.idArticle">
-        </div>
-        <div class="form-group"></div>
-        <button type="submit">Save</button>
-      </form>
-    </div>
-    <div class="cbfils-grid">
-      <div (click)="populateForm(cbfils)"class="cbfils-row" *ngFor="let cbfils of cbfilss">
-        <div class="cbfils-row-details">
-          <span>{{ cbfils.idFils }}</span>
-          <span>{{ cbfils.idArticle }}</span>
-        </div>
-        <div class="cbfils-row-action">
-          <a (click)="deleteCbfils(cbfils)"><i class="fa-solid fa-trash-can"></i></a>
-        </div>
+<div class="container">
+  <div class="form-container">
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="idFils">Id_Fils</label>
+        <input type="text" id="idFils" name="idFils" [(ngModel)]="cbfils.idFils" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="inputArticle">Id_Article</label>
+        <select id="inputArticle" class="form-control" name="idArticle" [(ngModel)]="cbfils.idArticle">
+          <option value="" disabled selected>Select an Article</option>
+          <option *ngFor="let p of article" [value]="p.idArticle">{{ p.idArticle }}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+  <div class="cbfils-results">
+    <div (click)="populateForm(cbfils)" class="cbfils-row" *ngFor="let cbfils of cbfilss">
+      <div class="cbfils-row-details">
+        <span class="cbfils-row-label">Id_Fils:</span>
+        <span>{{ cbfils.idFils }}</span>
+      </div>
+      <div class="cbfils-row-details">
+        <span class="cbfils-row-label">Id_Article:</span>
+        <span>{{ cbfils.idArticle }}</span>
+      </div>
+      <div class="cbfils-row-action">
+        <a (click)="deleteCbfils(cbfils)"><i class="fas fa-trash"></i></a>
       </div>
     </div>
   </div>
-  
+</div>
+
+
+
+
+
   
 

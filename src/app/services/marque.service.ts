@@ -11,7 +11,7 @@ export class MarqueService {
   private url;
 
   constructor(private http: HttpClient) {
-    this.url = "https://localhost:7021/api/Marques";
+    this.url = "https://localhost:7248/api/Marques";
   }
 
  // public GetMarques(): Observable<marque[]> {
