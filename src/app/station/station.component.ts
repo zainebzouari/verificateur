@@ -154,31 +154,29 @@ export class StationComponent implements OnInit, AfterViewInit {
   
 
   removeStation(event: any) {
+ 
     this.stations.forEach((val, index) => {
       if (val.id === parseInt(event)) {
         this.stationService.deleteStation(event).subscribe((res) => {
+
           this.stations.splice(index, 1);
         });
       }
     });
   }
+  
 
   editStation(event: any) {
-    const id = parseInt(event, 10);
-    const stationToEdit = this.stations.find((val) => val.id === id);
-
-    if (stationToEdit) {
-      this.stationForm.setValue({
-        idStation: stationToEdit.idStation,
-        adresse: stationToEdit.adresse,
-        designation: stationToEdit.designation,
-        logo: '',
-      });
-
-      this.removeStation(event);
+    this.stations.forEach((val, index) => {
+      if (val.id === event) {
+       this.setForm(val)
+      }
+        });
+      this.removeStation(event)
       this.addStationButton.nativeElement.click();
     }
-  }
+  
+  
   setForm(stat: Station) {
     this.idStation.setValue(stat.idStation);
     this.adresse.setValue(stat.adresse);

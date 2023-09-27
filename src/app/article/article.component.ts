@@ -39,7 +39,7 @@ export class ArticleComponent {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
-  displayedItemCount: number = 0;
+  displayedItemCount: number =0;
   selectAllChecked: boolean = false;
   idArticle: string | null = null;
   selectedImage: string | null = null;
@@ -50,6 +50,7 @@ export class ArticleComponent {
   selected: boolean = false;
   showForm: boolean = true;
   deleteConfirmationVisible = true;
+ 
 
   constructor(
     private route: Router,
@@ -168,6 +169,7 @@ export class ArticleComponent {
   onPageChange(page: number) {
     this.currentPage = page;
     this.updateDisplayedItemCount();
+   
   }
 
   onPageSizeChange(event: any) {

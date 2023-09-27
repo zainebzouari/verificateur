@@ -22,7 +22,6 @@ import { SharedDatepickerComponent } from './shared-datepicker/shared-datepicker
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { HomeComponent } from './home/home.component';
 import { StationComponent } from './station/station.component';
-import { NgxSpinnerModule } from "ngx-spinner";
 import { UploadComponent } from './upload/upload.component';
 import { AboutComponent } from './about/about.component';
 import {MatTableDataSource} from '@angular/material/table';
@@ -78,7 +77,6 @@ import { EditstationComponent } from './editstation/editstation.component';
     MatSelectModule,
    // MatTableModule
    MatPaginatorModule,
-   NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
    TableModule,
    ButtonModule,
    InputTextModule,

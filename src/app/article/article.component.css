@@ -454,7 +454,7 @@ body {
 }
 
 .table-title {
-  background: #007bff;
+  background:  Linear-gradient(to top right, #ff9500, #ffd06b);
   color: #fff;
   padding: 15px;
   border-radius: 5px 5px 0 0;
@@ -503,12 +503,12 @@ table.table td i {
 
 table.table td a {
   font-weight: bold;
-  color: #007bff;
+  background-image: #007bff;
   text-decoration: none;
 }
 
 table.table td a:hover {
-  color: #0056b3;
+  background-image: #007bff;
 }
 
 .pagination {
@@ -522,22 +522,22 @@ table.table td a:hover {
 }
 
 .pagination li a {
-  color: #007bff;
+  color:orange;
   text-decoration: none;
   padding: 5px 10px;
-  border: 1px solid #007bff;
+  border: 1px solid orange;
   border-radius: 4px;
 }
 
 .pagination li.active a {
-  background-color: #007bff;
+  background-color: orange;
   color: #fff;
-  border: 1px solid #007bff;
+  border: 1px solid orange;
 }
 
 .pagination li a:hover {
-  background-color: #0056b3;
-  border: 1px solid #0056b3;
+  background-color:orange;
+  border: 1px solid orange;
   color: #fff;
 }
 
@@ -547,10 +547,12 @@ table.table td a:hover {
 
 .filter {
   margin: 15px 0;
+float: right; 
 }
 
 .mat-form-field {
   width: 100%;
+
 }
 
 /* Custom checkbox styles */
@@ -602,6 +604,7 @@ table.table td a:hover {
 .mat-datepicker-toggle {
   color: #007bff;
   cursor: pointer;
+
 }
 
 .modal{
@@ -613,4 +616,8 @@ table.table td a.edit {
 
 table.table td a.delete {
   color: #f44336;
+}
+.mat{
+  float:left;
+  padding:15 px;
 }

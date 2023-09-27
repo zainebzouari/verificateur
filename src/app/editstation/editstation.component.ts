@@ -13,6 +13,13 @@ export class EditstationComponent implements OnInit {
   @Output() onEditStation = new EventEmitter<string>();
 
   constructor() {
+    this.station={
+      idStation:'',
+      adresse:'',
+      logo:'',
+      designation:'',
+      id:''
+    }
    
   }
 
