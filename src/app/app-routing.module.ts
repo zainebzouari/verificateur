@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { ArticleComponent } from './article/article.component';
-import { MarqueComponent } from './components/marque.component';
+import { MarqueComponent } from './marque/marque.component';
 import { ViewFamilleComponent } from './viewfamille/viewfamille.component';
 import { FamilleComponent } from './famille/famille.component';
 import { EditFamilleComponent } from './edit-famille/edit-famille.component';

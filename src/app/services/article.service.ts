@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Article } from '../models/article';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,20 +11,31 @@ import { environment } from 'src/environments/environment';
 export class ArticleService {
   private url;
 
-  // private imageUrl;
-
   constructor(private http: HttpClient) {
     this.url = 'https://localhost:7248/api/Articles';
-    // this.imageUrl = 'https://localhost:7021/api/fileupload';
   }
 
-  // public GetMarques(): Observable<marque[]> {
-  //return this.http.get<marque[]>(`${environment.apiUrl}/${this.url}`);
-  //}
   public GetArticles(): Observable<Article[]> {
     let header = new HttpHeaders();
     header.append('Content-Type', 'applications/json');
-    return this.http.get<Article[]>(`${this.url}`, { headers: header });
+    return this.http.get<Article[]>(`${this.url}`, { headers: header }).pipe(
+      map((response: any) => {
+        // Map the JSON response to your model
+        return response.map((item: any) => ({
+          idArticle: item.idArticle,
+          ddPromotion: item.ddpromotion,
+          designationArticle: item.designationArticle,
+          dfPromotion: item.dfpromotion,
+          idFamille: item.idFamille,
+          idMarque: item.idMarque,
+          idStation: item.idStation,
+          imageArt: item.imageArt,
+          prixTTC: item.prixTtc,
+          tauxPromotion: item.tauxPromotion,
+          prixPromotion: item.prixPromotion,
+        }));
+      })
+    );;
   }
 
   public updateArticle(article: Article): Observable<any> {

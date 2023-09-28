@@ -5,32 +5,47 @@
       <p>Obtenez les meilleurs prix pour vos produits préférés.</p>
     </header>
 
+    <!-- Search box -->
     <div class="search-box">
-      <input
-        type="text"
-        id="productId"
-        [(ngModel)]="productId"
-        placeholder="Rechercher un produit par ID..."
-        (keyup.enter)="checkPrice()"
-      />
-      <button (click)="checkPrice()">Rechercher par ID</button>
+      <div>
+        <input
+          type="text"
+          id="productId"
+          class="input"
+          [(ngModel)]="productId"
+          placeholder="Rechercher un produit par ID..."
+          (keyup.enter)="checkPrice()"
+          autofocus
+        />
+        <button (click)="checkPrice()"><span class="material-symbols-outlined">
+          arrow_forward_ios
+          </span></button>
+      </div>
+      <p class="input-error" *ngIf="!searched">{{ message }}</p>
     </div>
+    <!-- End search box -->
 
-    <div class="results" *ngIf="searched && result">
-      <h2>Résultats de la recherche :</h2>
-      <div class="result-content">
+    <!-- Results -->
+    <div class="results" *ngIf="searched">
+      <!-- Success result -->
+      <div class="result-success" *ngIf="!message">
         <div class="product-image">
-          <img [src]="result.imageArt" alt="{{ result.imageArt }}" />
+          <img [src]="result.imageArt" alt="article" />
         </div>
+
         <div class="product-details">
-          <h3>Designation : {{ result.designationArticle }}</h3>
-          <p>Prix Promotion : {{ result.prixPromotion }} €</p>
+          <p><span>Designation:</span> {{ result.designationArticle }}</p>
+          <p><span>Taux De Promotion:</span> {{ result.prixPromotion }} %</p>
+          <p><span>Prix Promotion:</span> {{ result.prixPromotion }} €</p>
         </div>
       </div>
-    </div>
 
-    <div class="no-results" *ngIf="!result && searched">
-      <p>Aucun résultat trouvé pour l'ID {{ productId }}</p>
+      <!-- Failed Result -->
+      <div class="result-failed" *ngIf="message">
+        <img src="../../assets/animated-icons/caution.gif" class="" alt="">
+        <p>{{ message }}</p>
+      </div>
     </div>
+    <!-- End results -->
   </div>
 </div>

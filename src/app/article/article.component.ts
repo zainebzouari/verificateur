@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
   Renderer2,
+  OnInit,
 } from '@angular/core';
 import { ArticleService } from '../services/article.service';
 import { Article } from '../models/article';
@@ -24,7 +25,7 @@ import { Marque } from '../models/marque';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css'],
 })
-export class ArticleComponent {
+export class ArticleComponent implements OnInit {
   @Input() article?: Article;
   @ViewChild('filterInput') filterInput!: ElementRef;
   mm!: Article;
@@ -39,7 +40,7 @@ export class ArticleComponent {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
-  displayedItemCount: number =0;
+  displayedItemCount: number = 0;
   selectAllChecked: boolean = false;
   idArticle: string | null = null;
   selectedImage: string | null = null;
@@ -50,7 +51,7 @@ export class ArticleComponent {
   selected: boolean = false;
   showForm: boolean = true;
   deleteConfirmationVisible = true;
- 
+  filteredItems: Article[] = [];
 
   constructor(
     private route: Router,
@@ -90,20 +91,22 @@ export class ArticleComponent {
   });
 
   ngOnInit(): void {
+    console.log('ngoninit', this.filteredItems)
     this.GetArticles();
     this.GetMarques();
     this.getFamilles();
     this.getStations();
-    this.dataSource = new MatTableDataSource<Article>(this.Articles);
+    this.filteredItems = this.getPaginatedItems();
   }
 
   GetArticles() {
     this.articleService.GetArticles().subscribe((result: Article[]) => {
-      console.log(result);
       this.Articles = result;
       this.totalItems = this.Articles.length;
+      this.filteredItems = this.getPaginatedItems();
     });
   }
+
   GetMarques() {
     this.marqueService.GetMarques().subscribe((result: Marque[]) => {
       this.Marques = result;
@@ -133,19 +136,14 @@ export class ArticleComponent {
           idFamille: '',
           idMarque: '',
           idStation: '',
-          imageArt: this.response.filePath, // Use this.response if it's correctly set
+          imageArt: this.response.filePath,
           prixTTC: '',
           tauxPromotion: '',
           prixPromotion: '',
         };
 
-        // Push the new article to the Articles array
         this.Articles.push(newArticle);
-
-        // Optionally, you can reset the form or perform any other necessary actions
         this.mygroup.reset();
-
-        // Refresh the list of articles
         this.GetArticles();
       });
   }
@@ -169,13 +167,10 @@ export class ArticleComponent {
   onPageChange(page: number) {
     this.currentPage = page;
     this.updateDisplayedItemCount();
-   
   }
 
   onPageSizeChange(event: any) {
-    // Mettez à jour itemsPerPage avec la valeur sélectionnée
     this.itemsPerPage = event.pageSize;
-    // Réinitialisez currentPage à 1 lorsque la taille de la page change
     this.currentPage = 1;
     this.updateDisplayedItemCount();
   }
@@ -250,16 +245,24 @@ export class ArticleComponent {
   };
 
   public createImgPath = (imagePath: string) => {
-    // change this when need it
     return `https://localhost:7248/${imagePath}`;
   };
 
-  applyFilter() {
-    const filterValue = (this.filterInput.nativeElement as HTMLInputElement)
-      .value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    // Assurez-vous de lier le dataSource à la source de données filtrée
-    // Cela vous permettra d'appliquer le filtre au tableau.
-    this.dataSource.filter = filterValue;
+  applyFilter(): Article[] {
+    const filterValue = (this.filterInput.nativeElement as HTMLInputElement).value.trim().toLowerCase();
+  
+    if (filterValue === '') {
+      this.filteredItems = this.getPaginatedItems();
+    } else {
+      this.filteredItems = this.getPaginatedItems().filter((item) => {
+        return (
+          item.idArticle?.toString().toLowerCase().includes(filterValue) ||
+          item.designationArticle?.toLowerCase().includes(filterValue)
+        );
+      });
+    }
+
+    console.log(this.filteredItems)
+    return this.filteredItems;
   }
 }
