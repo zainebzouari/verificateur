@@ -39,6 +39,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ContactComponent } from './contact/contact.component';
 import { MarqueComponent } from './marque/marque.component';
 import { EditstationComponent } from './editstation/editstation.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { EditstationComponent } from './editstation/editstation.component';
     FooterComponent,
     ContactComponent,
     EditstationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
